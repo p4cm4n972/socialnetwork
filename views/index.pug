@@ -1,0 +1,119 @@
+extends layout
+
+block content
+  .container.text-center
+    .row
+      .col-sm-3.well(style="background-color:#000000;")
+        .well(id='maps-canvas', style="background-color:#000000;")
+            
+        .well(style="background-color:#000000;")
+          p
+            a(href='#') Interests
+          p
+            span.label.label-default Javascript
+            |  
+            span.label.label-primary Node Express JS
+            |  
+            span.label.label-success Socket.io
+            |  
+            span.label.label-info AjaX
+            |  
+            span.label.label-warning Angularjs
+            |  
+            span.label.label-danger Cordova
+            |
+            span.label.label-warning HTML5
+            |  
+            span.label.label-default CSS3
+        .alert.alert-success.fade.in
+          a.close(href='#', data-dismiss='alert', aria-label='close') &Atilde;&mdash;
+          p
+            strong Ey!
+          |  People are looking at your profile. Find out who.
+        p
+          a(href='#') Link
+        p
+          a(href='#') Link
+        p
+          a(href='#') Link
+      .col-sm-7(style="background-color:#000000;")
+        .row
+          .col-sm-12(style="background-color:#000000;")
+            .panel.panel-default.text-center(style="background-color:#000000;")
+              .panel-body
+                h1(class="flash") Welcom to proZe
+                h2(class="flash") The fullstack JSocial network 
+                |
+                video(class="img" source src="/images/video.mp4" width="100%" height="100%" margin="auto" loop autoplay)
+            .panel.panel-default.text-center(style="background-color:#000000;")
+              .panel-body: img(src="/images/barometre.jpg" width="90%" margin="0px")
+              p langages de programmations les plus populaires
+            .panel.panel-default.text-center(style="background-color:#000000;")
+              .panel-body Best IDE for web development
+              div(id="myCarousel" class="carousel slide" data-ride="carousel")
+                ol(class="carousel-indicators")                
+                div(class="carousel-inner" role="listbox")
+                  div(class="item active")
+                    img(src="/images/ide01.png")
+                    p RJ Text ED
+                  div(class="item")
+                    img(src="/images/ide02.png")
+                    p Light Table
+                  div(class="item")
+                    img(src="/images/ide03.jpg")
+                    p Netbeans
+                  div(class="item")
+                    img(src="/images/ide04.png")
+                    p Netbeans
+                  div(class="item")
+                    img(src="/images/ide05.jpg")
+                    p Netbeans
+                  
+            .panel.panel-default.text-center(style="background-color:#000000;")
+              .panel-body Best books to learn Javascript
+              div(id="myCarousel" class="carousel slide" data-ride="carousel")
+                ol(class="carousel-indicators")                
+                div(class="carousel-inner" role="listbox")
+                  div(class="item active")
+                    img(src="/images/book01.png")
+                    p Eloquent Javascript 
+                  div(class="item")
+                    img(src="/images/book02.png")
+                    p Javascript: The good parts
+                  
+      .col-sm-2.well(style="background-color:#000000;")
+        .thumbnail(style="background-color:#000000;")
+          p Games: 
+          a(href="/signup"): div(id="myCarousel" class="carousel slide" data-ride="carousel")
+              ol(class="carousel-indicators")                
+              div(class="carousel-inner" role="listbox")
+                div(class="item active")
+                  img(src="/images/git01.png")
+                  p Bricks Break
+                div(class="item")
+                  img(src="/images/git02.png")
+                  p PerryPC
+                div(class="item")
+                  img(src="/images/git03.png")
+                  p Jsumos
+          |  
+        .well(style="background-color:#000000;")
+          p.glyphicon.glyphicon-dashboard
+          div(ng-route="lastfmApp" ng-controller="LastfmController")
+            p 
+            p 
+          
+        .well(style="background-color:#000000;")
+          p Upcoming Events:
+        .well(style="background-color:#000000;")
+          p Upcoming Events:
+        .well(style="background-color:#000000;")
+          p Upcoming :
+        .well(style="background-color:#000000;")
+          p Upcoming: Events
+        .well(style="background-color:#000000;")
+        
+      
+        
+
+

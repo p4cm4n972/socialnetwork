@@ -1,0 +1,73 @@
+    html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+li,
+a,
+p {
+    font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace;
+    color: #008000
+}
+
+html {
+    background: linear-gradient(45deg, red, blue);
+    border-radius: 15px;
+}
+
+body {
+    background-color: #000000;
+    border-radius: 15px;
+    width: 95%;
+    min-height: 90%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+footer {
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+video {
+    border-radius: 5px;
+}
+
+img {
+    margin: 15px;
+}
+
+ul li a span {
+    margin: 5px;
+}
+
+#maps-canvas {
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+}
+
+.navbar-toggle {
+    border-color: #008000;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #008000;
+}
+
+.navbar-light .navbar-nav>li>a:hover,
+.navbar-light .navbar-nav>li>a:focus,
+.nav.navbar-nav.navbar-right>li>a:focus {
+    background: #008000;
+    color: black;
+}
+
+.carousel-inner>.item>img,
+.carousel-inner>.item>a>img {
+    width: 100%;
+    margin: auto;
+}
+
