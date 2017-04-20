@@ -10,52 +10,9 @@ const Linkedin = require('node-linkedin')(process.env.LINKEDIN_ID, process.env.L
 const clockwork = require('clockwork')({ key: process.env.CLOCKWORK_KEY });
 const lob = require('lob')(process.env.LOB_KEY);
 const ig = bluebird.promisifyAll(require('instagram-node').instagram());
-const foursquare = require('node-foursquare')({
-  secrets: {
-    clientId: process.env.FOURSQUARE_ID,
-    clientSecret: process.env.FOURSQUARE_SECRET,
-    redirectUrl: process.env.FOURSQUARE_REDIRECT_URL
-  }
-});
 
-foursquare.Venues = bluebird.promisifyAll(foursquare.Venues);
-foursquare.Users = bluebird.promisifyAll(foursquare.Users);
-/*********/
-
-/**
- * GET /api
- * List of API examples.
- */
-exports.getApi = function (req, res)  {
-  res.render('api/index', {
-    title: 'API Examples'
-  });
-};
-
-/**
- * GET /api/foursquare
- * Foursquare API example.
- */
-exports.getFoursquare = function(req, res, next)  {
-  const token = req.user.tokens.find(token => token.kind === 'foursquare');
-  Promise.all([
-    foursquare.Venues.getTrendingAsync('40.7222756', '-74.0022724', { limit: 50 }, token.accessToken),
-    foursquare.Venues.getVenueAsync('49da74aef964a5208b5e1fe3', token.accessToken),
-    foursquare.Users.getCheckinsAsync('self', null, token.accessToken)
-  ])
-  .then(function ([trendingVenues, venueDetail, userCheckins])  {
-    res.render('api/foursquare', {
-      title: 'Foursquare API',
-      trendingVenues,
-      venueDetail,
-      userCheckins
-    });
-  })
-  .catch(next);
-};
 /**
  * GET /api/facebook
- * Facebook API example.
  */
 exports.getFacebook = function (req, res, next)  {
   const token = req.user.tokens.find(token => token.kind === 'facebook');
@@ -137,7 +94,6 @@ exports.getLastfm = function (req, res, next)  {
 
 /**
  * GET /api/twitter
- * Twitter API example.
  */
 exports.getTwitter = function (req, res, next)  {
   const token = req.user.tokens.find(token => token.kind === 'twitter');
@@ -156,87 +112,6 @@ exports.getTwitter = function (req, res, next)  {
   });
 };
 
-/**
- * POST /api/twitter
- * Post a tweet.
- */
-exports.postTwitter = function (req, res, next)  {
-  req.assert('tweet', 'Tweet cannot be empty').notEmpty();
-
-  const errors = req.validationErrors();
-
-  if (errors) {
-    req.flash('errors', errors);
-    return res.redirect('/api/twitter');
-  }
-
-  const token = req.user.tokens.find(token => token.kind === 'twitter');
-  const T = new Twit({
-    consumer_key: process.env.TWITTER_KEY,
-    consumer_secret: process.env.TWITTER_SECRET,
-    access_token: token.accessToken,
-    access_token_secret: token.tokenSecret
-  });
-  T.post('statuses/update', { status: req.body.tweet }, function (err)  {
-    if (err) { return next(err); }
-    req.flash('success', { msg: 'Your tweet has been posted.' });
-    res.redirect('/api/twitter');
-  });
-};
-
-/**
- * GET /api/steam
- * Steam API example.
- */
-exports.getSteam = function (req, res, next)  {
-  const steamId = '76561197982488301';
-  const params = { l: 'english', steamid: steamId, key: process.env.STEAM_KEY };
-  const playerAchievements = function ()  {
-    params.appid = '49520';
-    return request.getAsync({ url: 'http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', qs: params, json: true })
-      .then(function ([request, body])  {
-        if (request.statusCode === 401) {
-          throw new Error('Invalid Steam API Key');
-        }
-        return body;
-      });
-  };
-  const playerSummaries = function ()  {
-    params.steamids = steamId;
-    return request.getAsync({ url: 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', qs: params, json: true })
-      .then(function ([request, body])  {
-        if (request.statusCode === 401) {
-          throw Error('Missing or Invalid Steam API Key');
-        }
-        return body;
-      });
-  };
-  const ownedGames = function ()  {
-    params.include_appinfo = 1;
-    params.include_played_free_games = 1;
-    return request.getAsync({ url: 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/', qs: params, json: true })
-      .then(function ([request, body])  {
-        if (request.statusCode === 401) {
-          throw new Error('Missing or Invalid Steam API Key');
-        }
-        return body;
-      });
-  };
-  Promise.all([
-    playerAchievements(),
-    playerSummaries(),
-    ownedGames()
-  ])
-  .then(function ([playerAchievements, playerSummaries, ownedGames])  {
-    res.render('api/steam', {
-      title: 'Steam Web API',
-      ownedGames: ownedGames.response.games,
-      playerAchievemments: playerAchievements.playerstats,
-      playerSummary: playerSummaries.response.players[0]
-    });
-  })
-  .catch(next);
-};
 /**
  * GET /api/clockwork
  * Clockwork SMS API example.
@@ -287,19 +162,6 @@ exports.getInstagram = function (req, res, next)  {
     });
   })
   .catch(next);
-};
-/**
- * GET /api/lob
- * Lob API example.
- */
-exports.getLob = function (req, res, next)  {
-  lob.routes.list({ zip_codes: ['10007'] }, function (err, routes)  {
-    if (err) { return next(err); }
-    res.render('api/lob', {
-      title: 'Lob API',
-      routes: routes.data[0].routes
-    });
-  });
 };
 
 /**
