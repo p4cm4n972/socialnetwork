@@ -1,10 +1,10 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  service: 'SendGrid',
+  service: 'gmail',
   auth: {
-    user: process.env.SENDGRID_USER,
-    pass: process.env.SENDGRID_PASSWORD
+    user: process.env.GOOGLE_ID,
+    pass: process.env.GOOGLE_SECRET,
   }
 });
 
@@ -37,16 +37,27 @@ exports.postContact = (req, res) => {
   const mailOptions = {
     to: 'manuel.adele@gmail.com',
     from: `${req.body.name} <${req.body.email}>`,
-    subject: 'Contact Form | Hackathon Starter',
-    text: req.body.message
+    host: 'smtp.gmail.com',
+    secure: true,
+    port: 465,
+    subject: 'Contact Form | proZe',
+    text: req.body.message,
+    auth: {
+      user: 'manuel.adele@gmail.com',
+      pass: 'Jean_3:16',
+    }
   };
 
   transporter.sendMail(mailOptions, (err) => {
     if (err) {
-      req.flash('errors', { msg: err.message });
+      req.flash('errors', {
+        msg: err.message
+      });
       return res.redirect('/contact');
     }
-    req.flash('success', { msg: 'Email has been sent successfully!' });
-    res.redirect('/contact');
+    req.flash('success', {
+      msg: 'Email has been sent successfully!'
+    });
+    res.redirect('/');
   });
 };

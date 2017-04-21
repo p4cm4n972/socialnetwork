@@ -4,9 +4,7 @@ const InstagramStrategy = require('passport-instagram').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
-const GitHubStrategy = require('passport-github').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const OpenIDStrategy = require('passport-openid').Strategy;
 const OAuthStrategy = require('passport-oauth').OAuthStrategy;
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
@@ -17,8 +15,8 @@ passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done)  {
-    User.findById(id, function (err, user)  {
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
         done(err, user);
     });
 });
@@ -28,10 +26,10 @@ passport.deserializeUser(function (id, done)  {
  */
 passport.use(new LocalStrategy({
     usernameField: 'email'
-}, function (email, password, done)  {
+}, function (email, password, done) {
     User.findOne({
         email: email.toLowerCase()
-    }, function (err, user)  {
+    }, function (err, user) {
         if (err) {
             return done(err);
         }
@@ -40,7 +38,7 @@ passport.use(new LocalStrategy({
                 msg: `Email ${email} not found.`
             });
         }
-        user.comparePassword(password, function (err, isMatch)  {
+        user.comparePassword(password, function (err, isMatch) {
             if (err) {
                 return done(err);
             }
@@ -63,11 +61,11 @@ passport.use(new FacebookStrategy({
     callbackURL: '/auth/facebook/callback',
     profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
     passReqToCallback: true
-}, function (req, accessToken, refreshToken, profile, done)  {
+}, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
         User.findOne({
             facebook: profile.id
-        }, function (err, existingUser)  {
+        }, function (err, existingUser) {
             if (err) {
                 return done(err);
             }
@@ -77,7 +75,7 @@ passport.use(new FacebookStrategy({
                 });
                 done(err);
             } else {
-                User.findById(req.user.id, function (err, user)  {
+                User.findById(req.user.id, function (err, user) {
                     if (err) {
                         return done(err);
                     }
@@ -89,7 +87,7 @@ passport.use(new FacebookStrategy({
                     user.profile.name = user.profile.name || `${profile.name.givenName} ${profile.name.familyName}`;
                     user.profile.gender = user.profile.gender || profile._json.gender;
                     user.profile.picture = user.profile.picture || `https://graph.facebook.com/${profile.id}/picture?type=large`;
-                    user.save(function (err)  {
+                    user.save(function (err) {
                         req.flash('info', {
                             msg: 'Facebook account has been linked.'
                         });
@@ -101,7 +99,7 @@ passport.use(new FacebookStrategy({
     } else {
         User.findOne({
             facebook: profile.id
-        }, function (err, existingUser)  {
+        }, function (err, existingUser) {
             if (err) {
                 return done(err);
             }
@@ -110,7 +108,7 @@ passport.use(new FacebookStrategy({
             }
             User.findOne({
                 email: profile._json.email
-            }, function (err, existingEmailUser)  {
+            }, function (err, existingEmailUser) {
                 if (err) {
                     return done(err);
                 }
@@ -131,7 +129,7 @@ passport.use(new FacebookStrategy({
                     user.profile.gender = profile._json.gender;
                     user.profile.picture = `https://graph.facebook.com/${profile.id}/picture?type=large`;
                     user.profile.location = (profile._json.location) ? profile._json.location.name : '';
-                    user.save(function (err)  {
+                    user.save(function (err) {
                         done(err, user);
                     });
                 }
@@ -147,11 +145,11 @@ passport.use(new TwitterStrategy({
     consumerSecret: process.env.TWITTER_SECRET,
     callbackURL: '/auth/twitter/callback',
     passReqToCallback: true
-}, function (req, accessToken, tokenSecret, profile, done)  {
+}, function (req, accessToken, tokenSecret, profile, done) {
     if (req.user) {
         User.findOne({
             twitter: profile.id
-        }, function (err, existingUser)  {
+        }, function (err, existingUser) {
             if (err) {
                 return done(err);
             }
@@ -161,7 +159,7 @@ passport.use(new TwitterStrategy({
                 });
                 done(err);
             } else {
-                User.findById(req.user.id, function (err, user)  {
+                User.findById(req.user.id, function (err, user) {
                     if (err) {
                         return done(err);
                     }
@@ -174,7 +172,7 @@ passport.use(new TwitterStrategy({
                     user.profile.name = user.profile.name || profile.displayName;
                     user.profile.location = user.profile.location || profile._json.location;
                     user.profile.picture = user.profile.picture || profile._json.profile_image_url_https;
-                    user.save(function (err)  {
+                    user.save(function (err) {
                         if (err) {
                             return done(err);
                         }
@@ -189,7 +187,7 @@ passport.use(new TwitterStrategy({
     } else {
         User.findOne({
             twitter: profile.id
-        }, function (err, existingUser)  {
+        }, function (err, existingUser) {
             if (err) {
                 return done(err);
             }
@@ -210,7 +208,7 @@ passport.use(new TwitterStrategy({
             user.profile.name = profile.displayName;
             user.profile.location = profile._json.location;
             user.profile.picture = profile._json.profile_image_url_https;
-            user.save(function (err)  {
+            user.save(function (err) {
                 done(err, user);
             });
         });
@@ -222,11 +220,11 @@ passport.use(new InstagramStrategy({
     clientSecret: process.env.INSTAGRAM_SECRET,
     callbackURL: '/auth/instagram/callback',
     passReqToCallback: true
-}, function (req, accessToken, refreshToken, profile, done)  {
+}, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
         User.findOne({
             instagram: profile.id
-        }, function (err, existingUser)  {
+        }, function (err, existingUser) {
             if (err) {
                 return done(err);
             }
@@ -236,7 +234,7 @@ passport.use(new InstagramStrategy({
                 });
                 done(err);
             } else {
-                User.findById(req.user.id, function (err, user)  {
+                User.findById(req.user.id, function (err, user) {
                     if (err) {
                         return done(err);
                     }
@@ -248,7 +246,7 @@ passport.use(new InstagramStrategy({
                     user.profile.name = user.profile.name || profile.displayName;
                     user.profile.picture = user.profile.picture || profile._json.data.profile_picture;
                     user.profile.website = user.profile.website || profile._json.data.website;
-                    user.save(function (err)  {
+                    user.save(function (err) {
                         req.flash('info', {
                             msg: 'Instagram account has been linked.'
                         });
@@ -260,7 +258,7 @@ passport.use(new InstagramStrategy({
     } else {
         User.findOne({
             instagram: profile.id
-        }, function (err, existingUser)  {
+        }, function (err, existingUser) {
             if (err) {
                 return done(err);
             }
@@ -280,40 +278,17 @@ passport.use(new InstagramStrategy({
             user.email = `${profile.username}@instagram.com`;
             user.profile.website = profile._json.data.website;
             user.profile.picture = profile._json.data.profile_picture;
-            user.save(function (err)  {
+            user.save(function (err) {
                 done(err, user);
             });
         });
     }
 }));
 
-passport.use('foursquare', new OAuth2Strategy({
-        authorizationURL: 'https://foursquare.com/oauth2/authorize',
-        tokenURL: 'https://foursquare.com/oauth2/access_token',
-        clientID: process.env.FOURSQUARE_ID,
-        clientSecret: process.env.FOURSQUARE_SECRET,
-        callbackURL: process.env.FOURSQUARE_REDIRECT_URL,
-        passReqToCallback: true
-    },
-    function (req, accessToken, refreshToken, profile, done)  {
-        User.findById(req.user._id, function (err, user)  {
-            if (err) {
-                return done(err);
-            }
-            user.tokens.push({
-                kind: 'foursquare',
-                accessToken
-            });
-            user.save(function (err)  {
-                done(err, user);
-            });
-        });
-    }
-));
 /**
  * Login Required middleware.
  */
-exports.isAuthenticated = function (req, res, next)  {
+exports.isAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
@@ -323,7 +298,7 @@ exports.isAuthenticated = function (req, res, next)  {
 /**
  * Authorization Required middleware.
  */
-exports.isAuthorized = function (req, res, next)  {
+exports.isAuthorized = function (req, res, next) {
     const provider = req.path.split('/').slice(-1)[0];
     const token = req.user.tokens.find(token => token.kind === provider);
     if (token) {
