@@ -26,10 +26,18 @@ block content
             |  
             span.label.label-default CSS3
         .alert.alert-success.fade.in
-          a.close(href='#', data-dismiss='alert', aria-label='close') &Atilde;&mdash;
+          a.close(href='#', data-dismiss='alert', aria-label='close')
           p
-            strong Ey!
-          |  People are looking at your profile. Find out who.
+            strong Members 
+            span.glyphicon.glyphicon-globe
+            ul
+              li #{memberName.length} registers
+              li #{memberName.length} inline
+        .alert.alert-success.fade.in
+          a.close(href='#', data-dismiss='alert', aria-label='close')
+          p
+            strong Articles #{totalArticles}
+            span.glyphicon.glyphicon-file
         p
           a(href='#') Link
         p
