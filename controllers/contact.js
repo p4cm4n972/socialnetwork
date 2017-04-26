@@ -22,7 +22,7 @@ exports.getContact = (req, res) => {
  * POST /contact
  * Send a contact form via Nodemailer.
  */
-exports.postContact = (req, res) => {
+exports.postContact = function (req, res)  {
   req.assert('name', 'Name cannot be blank').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('message', 'Message cannot be blank').notEmpty();
@@ -48,7 +48,7 @@ exports.postContact = (req, res) => {
     }
   };
 
-  transporter.sendMail(mailOptions, (err) => {
+  transporter.sendMail(mailOptions, function(err)  {
     if (err) {
       req.flash('errors', {
         msg: err.message

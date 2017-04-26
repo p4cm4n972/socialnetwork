@@ -130,7 +130,7 @@ app.post('/account/profile', passportConfig.isAuthenticated, userController.post
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/content/article', articleController.getArticle);
-//app.post('/article', articleController.postArticle);
+app.post('/article', articleController.postArticle);
 
 
 /**
