@@ -12,11 +12,6 @@ exports.postArticle = function (req, res) {
 
         const errors = req.validationErrors();
 
-        if (errors) {
-            req.flash('errors', errors);
-            return res.redirect('content/article')
-        };
-
         const article = new Article({
             title: req.body.title,
             content: req.body.content,
