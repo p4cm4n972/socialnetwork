@@ -1,5 +1,5 @@
 const User = require('../models/User');
-var t =[];
+
 exports.index = function (req, res) {
     User.find({}, {
         'email': 1,

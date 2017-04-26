@@ -34,10 +34,16 @@ nav.navbar.navbar-light(style="background-color:#000000;")
                 img(src=user.gravatar(60))
               span= user.profile.name || user.email || user.id         
                 li
-                  a(href='/account',) My Account
+                  a(href='/account') my account
                     span.glyphicon.glyphicon-user
-                li.divider
                 li
-                  a(href='/logout') Logout
+                  a(href='/logout') logout
                     span.glyphicon.glyphicon-log-out
-                    
+              if title == 'proZe'
+                li
+                  a(href='/content/article') post
+                    span.glyphicon.glyphicon-blackboard
+              else 
+                li
+                  a(href='/content/article') ...
+                    span.glyphicon.glyphicon-hourglass  
