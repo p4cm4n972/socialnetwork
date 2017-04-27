@@ -109,7 +109,7 @@ exports.postSignup = function (req, res, next) {
     }
     if (existingUser) {
       req.flash('errors', {
-        msg: 'Account with that email address already exists.'
+        msg: 'Account with that email address already exists!'
       });
       return res.redirect('/signup');
     }
