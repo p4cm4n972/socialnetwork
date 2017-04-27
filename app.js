@@ -49,7 +49,7 @@ const app = express();
  */
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGODB_URI);
-mongoose.connection.on('error', (err) => {
+mongoose.connection.on('error', function (err)  {
   console.error(err);
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
   process.exit();
@@ -81,7 +81,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use((req, res, next) => {
+app.use( function (req, res, next) {
   if (req.path === '/api/upload') {
     next();
   } else {
@@ -90,11 +90,11 @@ app.use((req, res, next) => {
 });
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
-app.use((req, res, next) => {
+app.use(function (req, res, next)  {
   res.locals.user = req.user;
   next();
 });
-app.use((req, res, next) => {
+app.use(function (req, res, next)  {
   // After successful login, redirect back to the intended page
   if (!req.user &&
       req.path !== '/login' &&

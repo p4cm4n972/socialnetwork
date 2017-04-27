@@ -6,12 +6,10 @@ exports.index = function (req, res) {
         _id: 0
     }, function (err, exist) {
         if (exist) {
-            console.log(exist);
             var memberJsonList = JSON.stringify(exist);
             var memberArrayList = JSON.parse(memberJsonList);
             
             var memberName = memberArrayList;
-            console.log(typeof(memberName));
             res.render('index', {
                 title: 'proZe',
                 memberName: memberName

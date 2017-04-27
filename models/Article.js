@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 
-const articleShema = new mongoose.Shema({
-    author: this.user,
+const articleSchema = new mongoose.Schema({
     content: String,
     title: String,
-    picture: String
 });
 
-const Article = mongoose.model('Article', articleShema);
+articleSchema.pre('save', function save(next){
+    const title = title;
+    const content = content
+})
+const Article = mongoose.model('Article', articleSchema);
 
 module.exports = Article;

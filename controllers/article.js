@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Article = require('../models/Article');
 
 exports.getArticle = function (req, res) {
     res.render('content/article', {
@@ -8,14 +9,18 @@ exports.getArticle = function (req, res) {
 
 exports.postArticle = function (req, res) {
         req.assert('title', 'Title cannot be blank').notEmpty();
-        req.assert('body', 'Message cannot be blank').notEmpty();
+        req.assert('content', 'Content cannot be blank').notEmpty();
 
         const errors = req.validationErrors();
+
+        if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('content/article');
+  }
 
         const article = new Article({
             title: req.body.title,
             content: req.body.content,
-            author: this.user
         });
         article.save(function (err) {
                 if (err) {
