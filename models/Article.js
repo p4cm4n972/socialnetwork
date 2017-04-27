@@ -6,8 +6,8 @@ const articleSchema = new mongoose.Schema({
 });
 
 articleSchema.pre('save', function save(next){
-    const title = title;
-    const content = content
+    const article = this;
+    next();
 })
 const Article = mongoose.model('Article', articleSchema);
 
