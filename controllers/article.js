@@ -1,4 +1,3 @@
-const bluebird = require('bluebird');
 const User = require('../models/User');
 const Article = require('../models/Article');
 

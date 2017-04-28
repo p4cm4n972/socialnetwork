@@ -33,6 +33,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const contactController = require('./controllers/contact');
 const articleController = require('./controllers/article');
+const aboutController = require('./controllers/about')
 
 /**
  * API keys and Passport configuration.
@@ -131,6 +132,7 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/content/article', articleController.getArticle);
 app.post('/content/article', articleController.postArticle);
+app.get('/about', aboutController.getAbout);
 
 
 /**

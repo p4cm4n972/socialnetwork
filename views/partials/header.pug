@@ -15,7 +15,10 @@ nav.navbar.navbar-light(style="background-color:#000000;")
             span.glyphicon.glyphicon-home
         li(class=(title == 'Contact') ? 'active' : undefined)
           a(href='/contact') contact
-            span.glyphicon.glyphicon-envelope
+            span.glyphicon.glyphicon-send
+        li(class=(title == 'About') ? 'active' : undefined)
+          a(href='/about') about
+            span.glyphicon.glyphicon-alert
         
       nav.nav.navbar-nav.navbar-right
         if !user
