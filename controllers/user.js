@@ -89,14 +89,14 @@ exports.postSignup = function (req, res, next) {
     remove_dots: false
   });
 
-  const errors = req.validationErrors();
+  var errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/signup');
   }
 
-  const user = new User({
+  var user = new User({
     email: req.body.email,
     password: req.body.password
   });
@@ -147,7 +147,7 @@ exports.postUpdateProfile = function (req, res, next)  {
     remove_dots: false
   });
 
-  const errors = req.validationErrors();
+  var errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
@@ -189,7 +189,7 @@ exports.postUpdatePassword = function (req, res, next)  {
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
-  const errors = req.validationErrors();
+  var errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
@@ -271,14 +271,14 @@ exports.postReset = function (req, res, next)  {
   req.assert('password', 'Password must be at least 4 characters long.').len(4);
   req.assert('confirm', 'Passwords must match.').equals(req.body.password);
 
-  const errors = req.validationErrors();
+  var errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('back');
   }
 
-  const resetPassword = () =>
+  var resetPassword = () =>
     User
     .findOne({
       passwordResetToken: req.params.token
@@ -304,18 +304,18 @@ exports.postReset = function (req, res, next)  {
       }));
     });
 
-  const sendResetPasswordEmail = (user) => {
+  var sendResetPasswordEmail = (user) => {
     if (!user) {
       return;
     }
-    const transporter = nodemailer.createTransport({
+    var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: 'manuel.adele@gmail.com',
         pass: 'jean_3:16'
       }
     });
-    const mailOptions = {
+    var mailOptions = {
       to: user.email,
       from: 'proZe.com',
       host: 'smtp.gmail.com',
@@ -367,18 +367,18 @@ exports.postForgot = (req, res, next) => {
     remove_dots: false
   });
 
-  const errors = req.validationErrors();
+  var errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/forgot');
   }
 
-  const createRandomToken = crypto
+  var createRandomToken = crypto
     .randomBytesAsync(16)
     .then(buf => buf.toString('hex'));
 
-  const setRandomToken = token =>
+  var setRandomToken = token =>
     User
     .findOne({
       email: req.body.email
@@ -396,19 +396,19 @@ exports.postForgot = (req, res, next) => {
       return user;
     });
 
-  const sendForgotPasswordEmail = (user) => {
+  var sendForgotPasswordEmail = (user) => {
     if (!user) {
       return;
     }
-    const token = user.passwordResetToken;
-    const transporter = nodemailer.createTransport({
+    var token = user.passwordResetToken;
+    var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: 'manuel.adele@gmail.com',
         pass: 'Jean_3:16'
       }
     });
-    const mailOptions = {
+    var mailOptions = {
       to: user.email,
       from: 'proZe.com',
       subject: 'Reset your password on proZe',
