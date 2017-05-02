@@ -36,7 +36,7 @@ exports.postArticle = function (req, res, next) {
                     return res.redirect('article');
                 }
                         req.flash('success', {
-                            msg: 'Article has been added successfully!'
+                            msg: 'Article has been added successfully!👍 '
                         });
                         res.redirect('/');
                 });

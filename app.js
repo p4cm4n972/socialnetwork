@@ -22,12 +22,12 @@ const multer = require('multer');
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
- * Load environment variables from .env file, where API keys and passwords are configured.
+ * Load environment variables
  */
 dotenv.load({ path: '.env.config' });
 
 /**
- * Controllers (route handlers).
+ * Controllers.
  */
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
@@ -36,7 +36,7 @@ const articleController = require('./controllers/article');
 const aboutController = require('./controllers/about')
 
 /**
- * API keys and Passport configuration.
+ * Passport configuration.
  */
 const passportConfig = require('./config/passport');
 
@@ -44,6 +44,10 @@ const passportConfig = require('./config/passport');
  * Create Express server.
  */
 const app = express();
+/**
+ * Create Socket.io connection
+ */
+//require('./socket-server')();
 
 /**
  * Connect to MongoDB.

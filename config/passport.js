@@ -46,7 +46,7 @@ passport.use(new LocalStrategy({
                 return done(null, user);
             }
             return done(null, false, {
-                msg: 'Invalid email or password.'
+                msg: 'Invalid email or password.☠️ '
             });
         });
     });

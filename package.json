@@ -64,6 +64,7 @@
     "pug": "^2.0.0-beta11",
     "request": "^2.81.0",
     "sendgrid": "^5.0.0",
+    "socket.io": "^1.7.3",
     "twilio": "^2.11.1",
     "twit": "^2.2.5",
     "validator": "^7.0.0"

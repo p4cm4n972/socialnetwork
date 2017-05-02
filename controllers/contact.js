@@ -40,7 +40,7 @@ exports.postContact = function (req, res)  {
     host: 'smtp.gmail.com',
     secure: true,
     port: 465,
-    subject: 'Contact Form | proZe',
+    subject: 'Contact Form | proZe 🤖 ',
     text: req.body.message,
     auth: {
       user: 'manuel.adele@gmail.com',
@@ -56,7 +56,7 @@ exports.postContact = function (req, res)  {
       return res.redirect('/contact');
     }
     req.flash('success', {
-      msg: 'Email has been sent successfully!'
+      msg: 'Email has been sent successfully!👄 '
     });
     res.redirect('/');
   });
