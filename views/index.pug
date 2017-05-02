@@ -127,7 +127,12 @@ block content
             (adsbygoogle = window.adsbygoogle || []).push({});
 
         .well(style="background-color:#000000;")
-          div(id="chatbox") 
+          div(id="chatbox")
+            div(class="panel panel-primary")
+              div(class="panel-heading") chat room
+                span(class="pull-right" id="chatbox-username")
+              div(class="panel-body")
+                ul(class="media-list" style="height:300px"; overflow-y:scroll id="chatbox-listMessages")
         .well(style="background-color:#000000;")
           p Upcoming :
         .well(style="background-color:#000000;")

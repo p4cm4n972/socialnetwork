@@ -43,6 +43,8 @@ html(lang='fr')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.2/codemirror.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.2/mode/javascript/javascript.min.js')
     script.
+      var socket = io.connect();
+    script.
       var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"),{
       lineNumbers: true,
       theme: "dracula"
