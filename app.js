@@ -47,7 +47,8 @@ const app = express();
 /**
  * Create Socket.io connection
  */
-//require('./socket-server')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 /**
  * Connect to MongoDB.
@@ -160,7 +161,14 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedi
  * Error Handler.
  */
 app.use(errorHandler());
-
+/**
+ * Start Socket.io connection
+ */
+io.on('connection', function(socket){
+       socket.on('chatMessage', function(data){
+           io.emit('chatMessage', data);
+       });
+    });
 /**
  * Start Express server.
  */
