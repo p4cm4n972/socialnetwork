@@ -1,18 +1,21 @@
-window.onload = function () {
 console.log('JAVASCRIPT chargé !');
-var username = document.getElementById('chatbox-username').value();
-var userMessage = function(name, text){
+var username = document.getElementById('chatbox-username').value;
+    console.log(username);
+
+var writeMessage = function(name, text){
+    console.log('WRITE');
     return ('<li class="media"><div class="media-body"><div class="media">' + '<div class="media-body"/>' + '<b>' + name + '</b> :' + text + '<hr/></div></div></div></li>');
 };
 
 var sendMessage = function () {
     console.log('send');
-    var userMessage = ('#userMessage').value();
+    var userMessage = document.getElementById('userMessage').value;
+    console.log(userMessage);
+    console.log(username);
     socket.emit('chatMessage', {message: userMessage, username: username});
-    ('#userMessage').value("");
+    document.getElementById('userMessage').value = "";
 };
 
 socket.on('chatMessage', function(data) {
-    document.getElementById('chatbox-listMessages').append(userMessage(data.username, data.message))
-})
-};
+    document.getElementById('chatbox-listMessages').append(writeMessage(data.username, data.message))
+});

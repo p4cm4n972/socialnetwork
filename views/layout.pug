@@ -20,7 +20,6 @@ html(lang='fr')
     script(src='/js/lib/bootstrap.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js")
-    script(type="text/javascript" src='/js/main.js')
     script(src='/socket.io/socket.io.js')
     script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBA3aPQ0M3lmwom2xMr44K8AnPOug84ENI")
     script(src='/js/google-maps.js')
@@ -51,7 +50,8 @@ html(lang='fr')
       theme: "dracula"
       });
     script.
-      var socket = io();
+      var socket = io('http://127.0.0.1:8000/');
+    script(type="text/javascript" src='/js/main.js')
     script.
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
