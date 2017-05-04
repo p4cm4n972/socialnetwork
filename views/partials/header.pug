@@ -42,11 +42,12 @@ nav.navbar.navbar-light(style="background-color:#000000;")
                 li
                   a(href='/logout') logout
                     span.glyphicon.glyphicon-log-out
-              if title == 'proZe'
+              if title == 'proZe' || 'Contact' || 'About'
                 li
                   a(href='/content/article') post
-                    span.glyphicon.glyphicon-blackboard
+                    span.i(class="fa fa-file-text-o" aria-hidden="true")
+
               else 
                 li
-                  a(href='/content/article') ...
-                    span.glyphicon.glyphicon-hourglass  
+                  span.i(class="fa-li fa fa-spinner fa-spin fa-3x")
+                   

@@ -29,10 +29,11 @@ block content
           a.close(href='#', data-dismiss='alert', aria-label='close')
           p
             strong Members 
-            span.glyphicon.glyphicon-globe
+            span.i(class="fa fa-users" aria-hidden="true")
+
             ul
               li #{memberName.length}
-                span.glyphicon.glyphicon-user
+                span.i(class="fa fa-connectdevelop" aria-hidden="true")
               li #{memberName.length}
                 span.glyphicon.glyphicon-flash
         .alert.alert-success.fade.in
@@ -59,7 +60,8 @@ block content
             else
               .panel.panel-default.text-left(style="background-color:#000000;")
                 .panel-body
-                  h1(class="flash") proZe galaJSy                  
+                  h1(class="flash").i(class="fa fa-terminal fa-3x" aria-hidden="true") proZe galaJSy
+                                    
                   textarea(id="code-editor")
             .panel.panel-default.text-center(style="background-color:#000000;")
               .panel-body: img(src="/images/barometre.jpg" width="90%" margin="0px")
