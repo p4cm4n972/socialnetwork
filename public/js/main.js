@@ -1,4 +1,4 @@
-console.log('JAVASCRIPT chargé !');
+console.log('JAVASCRIPT CHAT LIVE chargé !');
 var username = document.getElementById('chatbox-username').value;
     console.log(username);
 
