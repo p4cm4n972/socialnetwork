@@ -7,29 +7,21 @@ lib-cov
 *.pid
 *.gz
 *.swp
+*.config
 
 pids
 logs
 results
 tmp
 
-#Build
-public/css/main.css
-
-# API keys and secrets
 .env.config
 
-# Dependency directory
 node_modules
-test
 
-# Editors
 .idea
 *.iml
 
-# OS metadata
 .DS_Store
-Thumbs.db"sendgrid.env" 
 
 data/db
 
