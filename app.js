@@ -19,12 +19,16 @@ const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const multer = require('multer');
 
-const upload = multer({ dest: path.join(__dirname, 'uploads') });
+const upload = multer({
+  dest: path.join(__dirname, 'uploads')
+});
 
 /**
  * Load environment variables
  */
-dotenv.load({ path: '.env.config' });
+dotenv.load({
+  path: '.env.config'
+});
 
 /**
  * Controllers.
@@ -55,7 +59,7 @@ var io = require('socket.io')(http);
  */
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGODB_URI);
-mongoose.connection.on('error', function (err)  {
+mongoose.connection.on('error', function (err) {
   console.error(err);
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
   process.exit();
@@ -72,7 +76,9 @@ app.use(compression());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(expressValidator());
 app.use(session({
   resave: true,
@@ -87,7 +93,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use( function (req, res, next) {
+app.use(function (req, res, next) {
   if (req.path === '/api/upload') {
     next();
   } else {
@@ -96,25 +102,27 @@ app.use( function (req, res, next) {
 });
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
-app.use(function (req, res, next)  {
+app.use(function (req, res, next) {
   res.locals.user = req.user;
   next();
 });
-app.use(function (req, res, next)  {
+app.use(function (req, res, next) {
   // After successful login, redirect back to the intended page
   if (!req.user &&
-      req.path !== '/login' &&
-      req.path !== '/signup' &&
-      !req.path.match(/^\/auth/) &&
-      !req.path.match(/\./)) {
+    req.path !== '/login' &&
+    req.path !== '/signup' &&
+    !req.path.match(/^\/auth/) &&
+    !req.path.match(/\./)) {
     req.session.returnTo = req.path;
   } else if (req.user &&
-      req.path == '/account') {
+    req.path == '/account') {
     req.session.returnTo = req.path;
   }
   next();
 });
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: 31557600000
+}));
 
 /**
  * Primary app routes.
@@ -144,15 +152,23 @@ app.get('/about', aboutController.getAbout);
  * OAuth authentication routes. (Sign in)
  */
 app.get('/auth/instagram', passport.authenticate('instagram'));
-app.get('/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/login' }), function (req, res) {
+app.get('/auth/instagram/callback', passport.authenticate('instagram', {
+  failureRedirect: '/login'
+}), function (req, res) {
   res.redirect(req.session.returnTo || '/');
 });
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
+app.get('/auth/facebook', passport.authenticate('facebook', {
+  scope: ['email', 'public_profile']
+}));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  failureRedirect: '/login'
+}), function (req, res) {
   res.redirect(req.session.returnTo || '/');
 });
 app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), function (req, res) {
+app.get('/auth/twitter/callback', passport.authenticate('twitter', {
+  failureRedirect: '/login'
+}), function (req, res) {
   res.redirect(req.session.returnTo || '/');
 });
 
@@ -161,20 +177,23 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedi
  * Error Handler.
  */
 app.use(errorHandler());
+
+module.exports = app;
 /**
  * Start Socket.io connection
  */
-io.on('connection', function(socket){
-       socket.on('chatMessage', function(data){
-           io.emit('chatMessage', data);
-       });
-    });
+io.on('connection', function(socket) {
+  console.log('user connected')
+  socket.on('chatMessage', function (data) {
+    io.emit('chatMessage', data);
+  });
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
+  });
+});
 /**
  * Start Express server.
  */
-app.listen(app.get('port'), function ()  {
-  console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env')); 
-  console.log('  Press CTRL-C to stop\n');
+http.listen(8000, function () {
+  console.log(' App is running at http://localhost:8000');
 });
-
-module.exports = app;

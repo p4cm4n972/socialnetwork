@@ -61,8 +61,14 @@ block content
               .panel.panel-default.text-left(style="background-color:#000000;")
                 .panel-body
                   h1(class="flash").i(class="fa fa-terminal fa-3x" aria-hidden="true") proZe galaJSy
-                                    
-                  textarea(id="code-editor")
+              .panel.panel-default.text-left(style="background-color:#000000;")
+                .panel-body
+                  div(class="pull-right" id="chatbox-username") #{user.profile.name || user.email}
+                    ul(id="messages")
+                    form(action="")
+                    input(type="text" id="userMessage")
+                    button(onclick="sendMessage()") SEND
+                                 
             .panel.panel-default.text-center(style="background-color:#000000;")
               .panel-body: img(src="/images/barometre.jpg" width="90%" margin="0px")
               p langages de programmations les plus populaires
@@ -98,6 +104,9 @@ block content
                   div(class="item")
                     img(src="/images/book02.png")
                     p Javascript: The good parts
+              .panel.panel-default.text-left(style="background-color:#000000;")
+                .panel-body Code Editor      
+                  textarea(id="code-editor")
                   
       .col-sm-2.well(style="background-color:#000000;")
         .thumbnail(style="background-color:#000000;")
@@ -121,16 +130,5 @@ block content
             p 
             p 
         .well(id="chatbox" style="width:auto")
-            div(class="panel-heading") chat live
-            if !user
-              a(href='/login') become a member
-            else
-              p(class="pull-right" id="chatbox-username") #{user.profile.name || user.email}
-            div(class="panel-body")
-            ul(class="media-list" style="height:750px; width:120px;padding:0px;margin:0px overflow-y:hidden" id="chatbox-listMessages")
-            div(class="panel-footer")
-              div(class="input-group")
-                input(type="text" class="form-control" id="userMessage")
-                span(class="input-group-btn")
-              button(type="button" onclick="sendMessage()") SEND
+            
 

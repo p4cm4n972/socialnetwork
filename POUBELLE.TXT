@@ -1,0 +1,29 @@
+p(class="pull-right" id="chatbox-username") #{user.profile.name || user.email}
+                    div(class="panel-body")
+                    ul(class="media-list" style="height:350px; width:100%;padding:0px;margin:0px overflow-y:hidden" id="chatbox-listMessages")
+                    div(class="panel-footer")
+                      div(class="input-group")
+                        input(type="text" class="form-control" width="100%" id="userMessage")
+                        span(class="input-group-btn")
+                      button(type="button" onclick="sendMessage()") SEND 
+
+
+
+
+                      script.
+      var writeMessage = function (name, text) {
+      return ('<li class="media"><div class="media-body"><div class="media">' + '<div class="media-body"/>' + '<b>' + name + '</b> :' + text + '<hr/></div></div></div></li>');
+      };
+      function sendMessage() {
+      var userMessage = document.getElementById('userMessage').value;
+      var username = document.getElementById('chatbox-username').innerText;
+      socket.emit('chatMessage', {
+      message: userMessage,
+      username: username
+      });
+      document.getElementById('userMessage').value = "";
+      return false;
+      };
+      socket.on('chatMessage', function (data) {
+      console.log(data.text);
+      });

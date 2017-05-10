@@ -1,21 +1,24 @@
-console.log('JAVASCRIPT CHAT LIVE chargé !');
-var username = document.getElementById('chatbox-username').value;
-    console.log(username);
+       window.addEventListener('load', function () {
+           console.log('JAVASCRIPT CHAT LIVE chargé !');
+           var socket = io.connect();
+           var writeMessage = function (name, text) {
+               return ('<li class="media"><div class="media-body"><div class="media">' + '<div class="media-body"/>' + '<b>' + name + '</b> :' + text + '<hr/></div></div></div></li>');
+           };
 
-var writeMessage = function(name, text){
-    console.log('WRITE');
-    return ('<li class="media"><div class="media-body"><div class="media">' + '<div class="media-body"/>' + '<b>' + name + '</b> :' + text + '<hr/></div></div></div></li>');
-};
+           function sendMessage() {
+               var userMessage = document.getElementById('userMessage').value;
+               var username = document.getElementById('chatbox-username').innerText;
+               socket.emit('chatMessage', {
+                   message: userMessage,
+                   username: username
+               });
+               document.getElementById('userMessage').value = "";
+               return false;
+           };
 
-var sendMessage = function () {
-    console.log('send');
-    var userMessage = document.getElementById('userMessage').value;
-    console.log(userMessage);
-    console.log(username);
-    socket.emit('chatMessage', {message: userMessage, username: username});
-    document.getElementById('userMessage').value = "";
-};
-
-socket.on('chatMessage', function(data) {
-    document.getElementById('chatbox-listMessages').append(writeMessage(data.username, data.message))
-});
+           socket.on('chatMessage', function (data) {
+               console.log(data.text);
+               alert(data.text)
+               
+       });
+       });
