@@ -62,12 +62,18 @@ block content
                 .panel-body
                   h1(class="flash").i(class="fa fa-terminal fa-3x" aria-hidden="true") proZe galaJSy
               .panel.panel-default.text-left(style="background-color:#000000;")
-                .panel-body
-                  div(class="pull-right" id="chatbox-username") #{user.profile.name || user.email}
-                    ul(id="messages")
-                    form(action="")
-                    input(type="text" id="userMessage")
-                    button(onclick="sendMessage()") SEND
+                .panel-body(id="chatbox-username") #{user.profile.name || user.email} 's chatbox 
+                  ul(id="messages")
+                    li ...
+                    li ...
+                    li ...
+                    li ...
+                    li ...
+                  form( id="form", method="POST")
+                    label(class="error")
+                      input(type='text', placeholder='type your message', id="userMessage", name="userMessage")
+                    label
+                      button(type="submit" class="button") SEND
                                  
             .panel.panel-default.text-center(style="background-color:#000000;")
               .panel-body: img(src="/images/barometre.jpg" width="90%" margin="0px")

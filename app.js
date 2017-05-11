@@ -52,7 +52,6 @@ const app = express();
  * Create Socket.io connection
  */
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
 
 /**
  * Connect to MongoDB.
@@ -68,7 +67,7 @@ mongoose.connection.on('error', function (err) {
 /**
  * Express configuration.
  */
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(expressStatusMonitor());
@@ -128,6 +127,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.post('/',homeController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -182,9 +182,12 @@ module.exports = app;
 /**
  * Start Socket.io connection
  */
+var io = require('socket.io')(http);
+
 io.on('connection', function(socket) {
   console.log('user connected')
   socket.on('chatMessage', function (data) {
+    console.log('CHAT');
     io.emit('chatMessage', data);
   });
   socket.on('disconnect', function () {
@@ -194,6 +197,5 @@ io.on('connection', function(socket) {
 /**
  * Start Express server.
  */
-http.listen(8000, function () {
-  console.log(' App is running at http://localhost:8000');
+http.listen(3000);
 });
