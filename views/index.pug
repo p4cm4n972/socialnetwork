@@ -60,15 +60,12 @@ block content
             else
               .panel.panel-default.text-left(style="background-color:#000000;")
                 .panel-body
-                  h1(class="flash").i(class="fa fa-terminal fa-3x" aria-hidden="true") proZe galaJSy
+                  .h1(class="flash").i(class="fa fa-terminal fa-3x" aria-hidden="true") proZe galaJSy
               .panel.panel-default.text-left(style="background-color:#000000;")
-                .panel-body(id="chatbox-username") #{user.profile.name || user.email} 's chatbox 
-                  ul(id="messages")
-                    li ...
-                    li ...
-                    li ...
-                    li ...
-                    li ...
+                .panel-body
+                  div(id="chatbox-username") #{user.profile.name || user.email} 
+                  ul(class="media-list" style="height: 300px; overflow-y:scroll" id="messages")
+                   
                   form( id="form", method="POST")
                     label(class="error")
                       input(type='text', placeholder='type your message', id="userMessage", name="userMessage")

@@ -178,11 +178,11 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', {
  */
 app.use(errorHandler());
 
-module.exports = app;
 /**
  * Start Socket.io connection
  */
 var io = require('socket.io')(http);
+module.exports = app;
 
 io.on('connection', function(socket) {
   console.log('user connected')
@@ -190,12 +190,8 @@ io.on('connection', function(socket) {
     console.log('CHAT');
     io.emit('chatMessage', data);
   });
-  socket.on('disconnect', function () {
-    console.log('user disconnected');
-  });
 });
 /**
  * Start Express server.
  */
 http.listen(3000);
-});

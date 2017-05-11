@@ -1,11 +1,9 @@
     window.addEventListener('DOMContentLoaded', function () {
         console.log('JAVASCRIPT chargé !')
-        var writeMessage = function (name, text) {
-            return ('<li class="media"><div class="media-body"><div class="media">' + '<div class="media-body"/>' + '<b>' + name + '</b> :' + text + '<hr/></div></div></div></li>');
-        };
+        
         window.addEventListener("submit", function (e) {
             var userMessage = document.getElementById('userMessage').value;
-            var username = document.getElementById('chatbox-username').innerText;
+            var username = document.getElementById('chatbox-username').innerHTML;
             console.log('SEND');
             e.preventDefault();
             socket.emit('chatMessage', {
@@ -16,7 +14,9 @@
             return false;
         });
         socket.on('chatMessage', function (data) {
-            console.log(data.text);
-            alert('receive');
+            var chatlist = document.getElementById('messages');
+            var newMessage = document.createElement('li');
+            chatlist.appendChild(newMessage);
+            newMessage.innerHTML = '<br>'+data.username+':'+ data.message
         });
     });
