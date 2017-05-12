@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  .page-header
+    .panel.panel-default.text-left(style="background-color:#000000;")
+                .panel-body
+                  div(id="chatbox-username") #{user.profile.name || user.email} 
+                  ul(class="media-list" style="height: 300px; overflow-y:scroll" id="messages")
+                   
+                  form( id="form", method="POST")
+                    label(class="error")
+                      input(type='text', placeholder='type your message', id="userMessage", name="userMessage")
+                    label
+                      button(type="submit" class="button") SEND
+                      script(src='/socket.io/socket.io.js')
+                      script.
+                        var socket = io.connect("http://127.0.0.1:3000")
+                      script(type="text/javascript" src="/js/main.js")

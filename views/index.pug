@@ -10,7 +10,8 @@ block content
           p
             a(href='#') Interests
           p
-            span.label.label-default Javascript
+            a.label.label-default(href="/createChat") Javascript
+            a
             |  
             span.label.label-primary Node Express JS
             |  
@@ -61,17 +62,8 @@ block content
               .panel.panel-default.text-left(style="background-color:#000000;")
                 .panel-body
                   .h1(class="flash").i(class="fa fa-terminal fa-3x" aria-hidden="true") proZe galaJSy
-              .panel.panel-default.text-left(style="background-color:#000000;")
-                .panel-body
-                  div(id="chatbox-username") #{user.profile.name || user.email} 
-                  ul(class="media-list" style="height: 300px; overflow-y:scroll" id="messages")
-                   
-                  form( id="form", method="POST")
-                    label(class="error")
-                      input(type='text', placeholder='type your message', id="userMessage", name="userMessage")
-                    label
-                      button(type="submit" class="button") SEND
-                                 
+              
+                                                  
             .panel.panel-default.text-center(style="background-color:#000000;")
               .panel-body: img(src="/images/barometre.jpg" width="90%" margin="0px")
               p langages de programmations les plus populaires

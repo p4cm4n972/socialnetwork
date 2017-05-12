@@ -89,7 +89,7 @@ passport.use(new FacebookStrategy({
                     user.profile.picture = user.profile.picture || `https://graph.facebook.com/${profile.id}/picture?type=large`;
                     user.save(function (err) {
                         req.flash('info', {
-                            msg: 'Facebook account has been linked.'
+                            msg: 'Facebook account has been linked.🙂'
                         });
                         done(err, user);
                     });
@@ -177,7 +177,7 @@ passport.use(new TwitterStrategy({
                             return done(err);
                         }
                         req.flash('info', {
-                            msg: 'Twitter account has been linked.'
+                            msg: 'Twitter account has been linked.🙂'
                         });
                         done(err, user);
                     });
@@ -248,7 +248,7 @@ passport.use(new InstagramStrategy({
                     user.profile.website = user.profile.website || profile._json.data.website;
                     user.save(function (err) {
                         req.flash('info', {
-                            msg: 'Instagram account has been linked.'
+                            msg: 'Instagram account has been linked.🙂'
                         });
                         done(err, user);
                     });

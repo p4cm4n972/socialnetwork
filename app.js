@@ -37,7 +37,8 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const contactController = require('./controllers/contact');
 const articleController = require('./controllers/article');
-const aboutController = require('./controllers/about')
+const aboutController = require('./controllers/about');
+const chatController = require('./controllers/chat');
 
 /**
  * Passport configuration.
@@ -51,7 +52,8 @@ const app = express();
 /**
  * Create Socket.io connection
  */
-var http = require('http').Server(app);
+var server = app.listen(3000);
+require('./socket-server')(server);
 
 /**
  * Connect to MongoDB.
@@ -146,6 +148,8 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 app.get('/content/article', articleController.getArticle);
 app.post('/content/article', articleController.postArticle);
 app.get('/about', aboutController.getAbout);
+app.get('/createChat',chatController.getChat);
+app.post('/createChat',chatController.getChat);
 
 
 /**
@@ -181,17 +185,10 @@ app.use(errorHandler());
 /**
  * Start Socket.io connection
  */
-var io = require('socket.io')(http);
 module.exports = app;
 
-io.on('connection', function(socket) {
-  console.log('user connected')
-  socket.on('chatMessage', function (data) {
-    console.log('CHAT');
-    io.emit('chatMessage', data);
-  });
-});
+
 /**
  * Start Express server.
  */
-http.listen(3000);
+

@@ -1,6 +1,7 @@
+   (function (window, io){
     window.addEventListener('DOMContentLoaded', function () {
         console.log('JAVASCRIPT chargé !')
-        
+        var socket = io('http://127.0.0.1:3000');
         window.addEventListener("submit", function (e) {
             var userMessage = document.getElementById('userMessage').value;
             var username = document.getElementById('chatbox-username').innerHTML;
@@ -17,6 +18,7 @@
             var chatlist = document.getElementById('messages');
             var newMessage = document.createElement('li');
             chatlist.appendChild(newMessage);
-            newMessage.innerHTML = '<br>'+data.username+':'+ data.message
+            newMessage.innerHTML = '<br>'+data.username+':'+ data.message;
         });
     });
+    })(window, io);
